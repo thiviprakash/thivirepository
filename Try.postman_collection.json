@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "808ce025-c5fa-4a13-a2c6-83f58c22fc48",
+		"name": "Try",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Form",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c16cf454-fda7-4d24-9830-0236b0d20b18",
+						"exec": [
+							"//import required modules\r",
+							"var CryptoJS = require(\"crypto-js\");\r",
+							"var moment = require('moment')\r",
+							"//keys and message params are assigned here\r",
+							"const pvtKey = pm.environment.get('privatekey');\r",
+							"const pubKey = pm.environment.get('publickey'); \r",
+							"const userToken =  pm.environment.get('devtoken');\r",
+							"const ipAddress = pm.environment.get('ipaddr');\r",
+							"const host = pm.environment.get('host');\r",
+							"const endpointURL = pm.request.url.toString().toLowerCase().replace(host, '');\r",
+							"const method = pm.request.method; \r",
+							"//construct UTC date with the requested format\r",
+							"var ampm = \"AM\";\r",
+							"if (new Date().getUTCHours() >= 12) {\r",
+							"    ampm = \"PM\"\r",
+							"}\r",
+							"var date = moment().format(\"MM/DD/yyyy\") + ' ' + moment().utc().format('LTS').replace(' ' + ampm, '.' + new Date().getUTCMilliseconds()) + ' ' + ampm;\r",
+							"//construct a base string message\r",
+							"var nl = '\\n'; //new line \r",
+							"var message = method +  nl + date +  nl + ipAddress + nl + userToken +  nl + endpointURL;\r",
+							"//generate hash string\r",
+							"var hashString = CryptoJS.HmacSHA256(message.toString(CryptoJS.enc.Utf8), pvtKey.toString(CryptoJS.enc.Utf8));\r",
+							"var b64hash =  hashString.toString(CryptoJS.enc.Base64); \r",
+							"          \r",
+							"//set the generated values to the environment variables to use in the header\r",
+							"pm.environment.set(\"authentication\", pubKey + \":\" + b64hash);\r",
+							"pm.environment.set(\"ts\", date);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4899e3f-d6a3-4eea-9ab1-68bd981397ab",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"IsForeign\"] === \"false\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "UserToken",
+						"value": "{{usertoken}}",
+						"type": "text"
+					},
+					{
+						"key": "DeveloperToken",
+						"value": "{{devtoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "IpAddress",
+						"value": "{{ipaddr}}",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "{{authentication}}",
+						"type": "text"
+					},
+					{
+						"key": "TimeStamp",
+						"value": "{{ts}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://ettpubapi.efile4taxes.com/v1.3/Form2290/Get?submissionId=c40288da-6d48-49ca-8b0f-b3f855044cc6",
+					"protocol": "http",
+					"host": [
+						"ettpubapi",
+						"efile4taxes",
+						"com"
+					],
+					"path": [
+						"v1.3",
+						"Form2290",
+						"Get"
+					],
+					"query": [
+						{
+							"key": "submissionId",
+							"value": "c40288da-6d48-49ca-8b0f-b3f855044cc6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
