@@ -1070,6 +1070,87 @@
 			"response": []
 		},
 		{
+			"name": "Validate Form no IRS payment option",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6adeece0-9f57-479f-bbf6-c31c47647627",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd50456f-cc49-4618-a194-3e671e531760",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"APIMessage\"] = responseBody.has(\"IRS payment type should not be empty\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "UserToken",
+						"value": "{{usertoken}}",
+						"type": "text"
+					},
+					{
+						"key": "DeveloperToken",
+						"value": "{{devtoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "IpAddress",
+						"value": "{{ipaddr}}",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "{{authentication}}",
+						"type": "text"
+					},
+					{
+						"key": "TimeStamp",
+						"value": "{{ts}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"Form2290Records\":[\r\n      {\r\n         \"RetSeqId\": null,\r\n         \"ReturnHeader\":{\r\n            \"BusinessDetails\":{\r\n               \"BusinessType\":\"SoleProprietorship\",\r\n               \"BusinessId\": \"00000000-0000-0000-0000-000000000000\",\r\n               \"EIN\":\"001117777\",\r\n               \"BusinessName\":\"C W Moore and Sons LLC\",\r\n               \"DBAName\":null,\r\n               \"Email\":\"thiviprakash.g@expressexcise.com\",\r\n               \"IsForeign\":false,\r\n               \"USAddress\":{\r\n                  \"Address\":\"23388 Lee St\",\r\n                  \"City\":\"Fremont\",\r\n                  \"State\":\"CA\",\r\n                  \"ZipCode\":\"35001\"\r\n               },\r\n               \"ForeignAddress\":null,\r\n               \"Phone\":\"9176394319\",\r\n               \"Fax\":null,\r\n               \"SigningAuthority\":{\r\n                  \"Name\":\"JOHN R DEMYAN\",\r\n                  \"Title\":\"Owner\",\r\n                  \"Phone\":\"9176394319\"\r\n               }\r\n            }\r\n         },\r\n         \"ReturnData\":{\r\n            \"Form2290\":{\r\n               \"IsFinalReturn\":true,\r\n               \"IsAddressChange\":false,\r\n               \"FUM\":\"072020\",\r\n            \"TotalTax\":550.0,\r\n            \"Credits\":100.0,\r\n            \"BalanceDue\":450.0,\r\n               \"ReportingVehicles\":[\r\n                  {\r\n                     \"VehSeqId\":\"1074\",\r\n                     \"VIN\":\"D311745ER51777\",\r\n                     \"WeightCategory\":\"V\",\r\n                     \"IsLogging\":false,\r\n                     \"IsAgriculture\":false,\r\n                     \"VehicleTax\":550,\r\n                     \"IsPrivatelyPurchased\":false,\r\n                     \"PurchasedMonth\":\"\"\r\n                  }\r\n               ],\r\n                \"PriorYearSuspendedVehicles\":[\r\n                  {\r\n                     \"VehSeqId\":\"1077\",\r\n                     \"VehicleId\":\"00000000-0000-0000-0000-000000000000\",\r\n                     \"VIN\":\"D3145GB25141\",\r\n                     \"SuspendedType\":\"SOLDORTRANSFERRED\",\r\n                     \"SoldTo\":\"John\",\r\n                     \"SoldDate\":\"12/30/2019\"\r\n                  }\r\n                  ],\r\n               \"CreditVehicles\":[\r\n                           {\r\n                        \"VehSeqId\":1078,\r\n                        \"VehicleId\":\"00000000-0000-0000-0000-000000000000\",\r\n                        \"VIN\":\"1ASD34ERT3ZX\",\r\n                        \"CreditType\":\"LOWMILEAGE\",\r\n                        \"PrevFiledTaxYear\":\"2019\",\r\n                        \"PrevFiledFUM\":\"072019\",\r\n                        \"PrevFiledGW\":\"A\",\r\n                        \"IsLogging?\":false,\r\n                        \"IRSExplaination\":\"test\",\r\n                        \"CreditAmount\":\"100.0\",\r\n                        \"SoldDetails\":null,\r\n                        \"DestroyedDetails\":null,\r\n                        \"StolenDetails\": null\r\n                     }\r\n               ],\r\n               \"IRSPaymentType\":null,\r\n               \"IRSPayments\":\r\n            {\r\n               \"BankRoutingNum\":\"147258963\",\r\n              \"AccountType\": \"Checking\",\r\n                  \"BankAccountNum\": \"1234567893692\",\r\n                  \"Phone\": \"9176394319\"\r\n            },\r\n               \"ConsentToDisclosure\":{\r\n                  \"IsConsentToDisclose\":true,\r\n                  \"ConsentPIN\":\"12345\"\r\n               },\r\n               \"IsThirdPartyDesignee\":true,\r\n               \"ThirdPartyDesigneeDetails\":{\r\n                  \"Name\":\"joe\",\r\n                  \"Phone\":\"9962104274\",\r\n                  \"DesigneePIN\":\"12456\"\r\n               },\r\n            \"Signature\":{\r\n                \"SignatureType\":\"TaxPayerPIN\",\r\n               \"TaxPayerPIN\":\"78945\"\r\n            }\r\n            }\r\n         }\r\n      }\r\n   ]\r\n}"
+				},
+				"url": {
+					"raw": "http://ettpubapi.efile4taxes.com/v1.3/Form2290/ValidateForm",
+					"protocol": "http",
+					"host": [
+						"ettpubapi",
+						"efile4taxes",
+						"com"
+					],
+					"path": [
+						"v1.3",
+						"Form2290",
+						"ValidateForm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Validate Form without business type",
 			"event": [
 				{
@@ -1376,12 +1457,12 @@
 	],
 	"variable": [
 		{
-			"id": "31016f02-877b-45af-8c2f-24648fb514bf",
+			"id": "8db43ca8-f8b4-4647-ba86-65f337d67560",
 			"key": "SubmissionId",
 			"value": "190FC5D7-309E-468F-8FCD-5F16C78672D9"
 		},
 		{
-			"id": "25d26e30-cad8-4adc-8fd6-69d270008870",
+			"id": "851657d7-0e6e-44b2-8573-42c7ea21c561",
 			"key": "RecordIds",
 			"value": "7B343ABD-97CB-4C00-BF8C-1C37F7FB1FE8"
 		}
