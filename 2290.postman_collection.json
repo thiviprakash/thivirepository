@@ -1232,6 +1232,180 @@
 			"response": []
 		},
 		{
+			"name": "Get Form PDF valid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9fb3246c-b014-4637-9c9a-055e1f8e060b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5c91c8f-5c83-41db-af7b-73880889e34f",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"StatusName\"] = jsonData.StatusName === \"Ok\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "UserToken",
+						"value": "{{usertoken}}",
+						"type": "text"
+					},
+					{
+						"key": "DeveloperToken",
+						"value": "{{devtoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "IpAddress",
+						"value": "{{ipaddr}}",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "{{authentication}}",
+						"type": "text"
+					},
+					{
+						"key": "TimeStamp",
+						"value": "{{ts}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://ettpubapi.efile4taxes.com/v1.3/Form2290/GetPDF?SubmissionId=17cef2e6-a1f2-46a3-b3f4-e1741829a041&RecordIds=f6d289d5-7250-4bf2-9462-4c2aa549013d",
+					"protocol": "http",
+					"host": [
+						"ettpubapi",
+						"efile4taxes",
+						"com"
+					],
+					"path": [
+						"v1.3",
+						"Form2290",
+						"GetPDF"
+					],
+					"query": [
+						{
+							"key": "SubmissionId",
+							"value": "17cef2e6-a1f2-46a3-b3f4-e1741829a041"
+						},
+						{
+							"key": "RecordIds",
+							"value": "f6d289d5-7250-4bf2-9462-4c2aa549013d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Form Schedule 1 valid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f3d5481e-c2f6-468a-9b65-dea7bb03a010",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdd69c10-cbb4-43f9-aac6-1bb034008616",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"StatusName\"] = jsonData.StatusName === \"Ok\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "UserToken",
+						"value": "{{usertoken}}",
+						"type": "text"
+					},
+					{
+						"key": "DeveloperToken",
+						"value": "{{devtoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "IpAddress",
+						"value": "{{ipaddr}}",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "{{authentication}}",
+						"type": "text"
+					},
+					{
+						"key": "TimeStamp",
+						"value": "{{ts}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://ettpubapi.efile4taxes.com/v1.3/Form2290/GetSchedule1?SubmissionId=17cef2e6-a1f2-46a3-b3f4-e1741829a041&RecordIds=f6d289d5-7250-4bf2-9462-4c2aa549013d",
+					"protocol": "http",
+					"host": [
+						"ettpubapi",
+						"efile4taxes",
+						"com"
+					],
+					"path": [
+						"v1.3",
+						"Form2290",
+						"GetSchedule1"
+					],
+					"query": [
+						{
+							"key": "SubmissionId",
+							"value": "17cef2e6-a1f2-46a3-b3f4-e1741829a041"
+						},
+						{
+							"key": "RecordIds",
+							"value": "f6d289d5-7250-4bf2-9462-4c2aa549013d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete Form valid",
 			"event": [
 				{
@@ -1457,12 +1631,12 @@
 	],
 	"variable": [
 		{
-			"id": "8db43ca8-f8b4-4647-ba86-65f337d67560",
+			"id": "9be8949c-9f99-4c08-ba19-14638dc9a0db",
 			"key": "SubmissionId",
 			"value": "190FC5D7-309E-468F-8FCD-5F16C78672D9"
 		},
 		{
-			"id": "851657d7-0e6e-44b2-8573-42c7ea21c561",
+			"id": "3835a547-17e0-4eec-8bd5-71da385f5f04",
 			"key": "RecordIds",
 			"value": "7B343ABD-97CB-4C00-BF8C-1C37F7FB1FE8"
 		}
