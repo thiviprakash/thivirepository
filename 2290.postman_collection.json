@@ -1576,6 +1576,93 @@
 			"response": []
 		},
 		{
+			"name": "Delete Form - transmitted return",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b8e6a20d-3100-4956-b672-6086bdd95256",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "98f29563-32ce-47a6-bd56-57b6bb5a0817",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"APIMessage\"] = responseBody.has(\"You cannot delete a return that is already transmitted to the IRS\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "UserToken",
+						"value": "{{usertoken}}",
+						"type": "text"
+					},
+					{
+						"key": "DeveloperToken",
+						"value": "{{devtoken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "IpAddress",
+						"value": "{{ipaddr}}",
+						"type": "text"
+					},
+					{
+						"key": "Authentication",
+						"value": "{{authentication}}",
+						"type": "text"
+					},
+					{
+						"key": "TimeStamp",
+						"value": "{{ts}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://ettpubapi.efile4taxes.com/v1.3/Form2290/Delete?SubmissionId=17cef2e6-a1f2-46a3-b3f4-e1741829a041&RecordIds=f6d289d5-7250-4bf2-9462-4c2aa549013d",
+					"protocol": "http",
+					"host": [
+						"ettpubapi",
+						"efile4taxes",
+						"com"
+					],
+					"path": [
+						"v1.3",
+						"Form2290",
+						"Delete"
+					],
+					"query": [
+						{
+							"key": "SubmissionId",
+							"value": "17cef2e6-a1f2-46a3-b3f4-e1741829a041"
+						},
+						{
+							"key": "RecordIds",
+							"value": "f6d289d5-7250-4bf2-9462-4c2aa549013d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete Form invalid ids",
 			"event": [
 				{
@@ -1713,12 +1800,12 @@
 	],
 	"variable": [
 		{
-			"id": "d4b50f59-f7ce-4db6-8920-cdc5df42f064",
+			"id": "b5bd5673-c324-4df4-8b74-346878da20d0",
 			"key": "SubmissionId",
 			"value": "190FC5D7-309E-468F-8FCD-5F16C78672D9"
 		},
 		{
-			"id": "1f1b1458-bdfd-4125-aad7-e7776461e7d7",
+			"id": "3c1952ed-a5d0-447e-bea4-3f97c9887d7f",
 			"key": "RecordIds",
 			"value": "7B343ABD-97CB-4C00-BF8C-1C37F7FB1FE8"
 		}
