@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TruckLogics Test Automation Smoke Suite" parallel= "false">
+
+	<test name="TruckLogics Chrome Test Cases">
+	<parameter name="Browser" value="chrome"/>
+		<classes>
+		
+		    <class name="com.TruckLogics.TestCases.ID_SmokeTest"/>			
+		    			
+		    	
+		</classes>
+		
+	</test>
+</suite>
